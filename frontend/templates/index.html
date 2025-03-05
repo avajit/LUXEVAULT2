@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AKK - Shop Our Collection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/css/index.css">
+</head>
+
+<body>
+    <header class="fixed top-0 left-0 w-full bg-opacity-50 p-2 flex justify-between items-center z-50">
+        <div class="flex items-center space-x-9">
+            <!-- Sidebar -->
+            <div id="menu" class="menu-container fixed top-0 left-0 h-full w-full sm:w-1/2 md:w-1/3 lg:w-1/4 bg-black flex-col justify-between shadow-lg hidden">
+                <div id="mainMenu" class="p-6">
+                    <div class="flex justify-end">
+                        <i class="fas fa-times text-xl cursor-pointer hover:text-gray-500 hover-pop" onclick="toggleMenu()"></i>
+                    </div>
+                    <div class="mt-10 space-y-6">
+                        <!-- Products Menu -->
+                        <div class="text-2xl cursor-pointer hover:text-gray-500 hover:scale-105 hover:p-4 hover:transition-all hover:duration-300 hover:bg-gray-800 rounded-lg" onclick="toggleProductSubmenu()">
+                            Products <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <!-- Product Submenu -->
+                        <div id="productSubmenu" class="hidden space-y-4 pl-5 border-l-2 border-gray-300">
+                            <div>
+                                <a href="bedding-bath.html" class="block cursor-pointer hover:text-gray-500 hover:scale-105 hover:p-4 hover:transition-all hover:duration-300 hover:bg-gray-800 rounded-lg">
+                                    Bedding & Bath
+                                </a>
+                            </div>
+                            <div>
+                                <a href="./furniture.html" class="block cursor-pointer hover:text-gray-500 hover:scale-105 hover:p-4 hover:transition-all hover:duration-300 hover:bg-gray-800 rounded-lg">
+                                    Furniture
+                                </a>
+                            </div>
+                            <div>
+                                <a href="./light.html" class="block cursor-pointer hover:text-gray-500 hover:scale-105 hover:p-4 hover:transition-all hover:duration-300 hover:bg-gray-800 rounded-lg">
+                                    Lighting
+                                </a>
+                            </div>
+                            <div>
+                                <a href="./homeandAccessorie.html" class="block cursor-pointer hover:text-gray-500 hover:scale-105 hover:p-4 hover:transition-all hover:duration-300 hover:bg-gray-800 rounded-lg">
+                                    Home Accessories
+                                </a>
+                            </div>
+                            <div>
+                                <a href="./wallandfloor.html" class="block cursor-pointer hover:text-gray-500 hover:scale-105 hover:p-4 hover:transition-all hover:duration-300 hover:bg-gray-800 rounded-lg">
+                                    Wall & Floor
+                                </a>
+                            </div>
+                            <div>
+                                <a href="./bodyandbeauty.html" class="block cursor-pointer hover:text-gray-500 hover:scale-105 hover:p-4 hover:transition-all hover:duration-300 hover:bg-gray-800 rounded-lg">
+                                    Body & Beauty
+                                </a>
+                            </div>
+                        </div>
+                        <div class="text-2xl cursor-pointer hover:text-gray-500 hover:scale-105 hover:p-4 hover:transition-all hover:duration-300 hover:bg-gray-800 rounded-lg">Stories</div>
+                        <div class="text-2xl cursor-pointer hover:text-gray-500 hover:scale-105 hover:p-4 hover:transition-all hover:duration-300 hover:bg-gray-800 rounded-lg">Gift guide</div>
+                    </div>
+                    <div class="p-6">
+                        <hr class="border-gray-300 mb-6">
+                        <div class="space-y-4">
+                            <div>
+                                <a href="index.html" class="block cursor-pointer hover:text-gray-500 hover:scale-105 hover:p-4 hover:transition-all hover:duration-300 hover:bg-gray-800 rounded-lg">
+                                    Home
+                                </a>
+                            </div>
+                            <div>
+                                <a href="./about.html" class="block cursor-pointer hover:text-gray-500 hover:scale-105 hover:p-4 hover:transition-all hover:duration-300 hover:bg-gray-800 rounded-lg">
+                                    About Us
+                                </a>
+                            </div>
+                            <div>
+                                <a href="https://www.google.com/maps/search/Premium+Store" target="_blank" class="block cursor-pointer hover:text-gray-500 hover:scale-105 hover:p-4 hover:transition-all hover:duration-300 hover:bg-gray-800 rounded-lg">
+                                    Store Locator
+                                </a>
+                            </div>
+                            <div>
+                                <a href="#contact" class="block cursor-pointer hover:text-gray-500 hover:scale-105 hover:p-4 hover:transition-all hover:duration-300 hover:bg-gray-800 rounded-lg">
+                                    Contact
+                                </a>
+                            </div>
+                            <div>
+                                <a href="material-library.html" class="block cursor-pointer hover:text-gray-500 hover:scale-105 hover:p-4 hover:transition-all hover:duration-300 hover:bg-gray-800 rounded-lg">
+                                    Material Library
+                                </a>
+                            </div>
+                            <div>
+                                <a href="country-region.html" class="block cursor-pointer hover:text-gray-500 hover:scale-105 hover:p-4 hover:transition-all hover:duration-300 hover:bg-gray-800 rounded-lg">
+                                    My country/region is not listed | English
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- JavaScript for Sidebar Toggle with Submenu -->
+
+            <!-- Header Menu Button -->
+            <button class="icon-hover p-3" onclick="toggleMenu()">
+                <i class="fas fa-bars text-xl"></i> Menu
+            </button>
+
+            <!-- Search Button -->
+            <button class="icon-hover p-3" onclick="toggleSearchSidebar()">
+                <i class="fas fa-search text-xl"></i>
+                <span class="ml-2">Search</span>
+            </button>
+
+            <!-- Search Sidebar (Initially hidden) -->
+            <div id="searchSidebar" class="search-sidebar fixed top-0 right-0 h-full w-80 bg-black shadow-lg transform translate-x-full transition-transform duration-300 ease-in-out z-50">
+                <div class="p-6">
+                    <div class="flex justify-end">
+                        <i class="fas fa-times text-xl cursor-pointer hover:text-gray-500" onclick="toggleSearchSidebar()"></i>
+                    </div>
+                    <h2 class="text-2xl mb-4">Search Products</h2>
+                    <form id="frmProductSearch" method="get" action="/search-results">
+                        <input class="search2 w-full p-3 mb-4 border border-gray-300 rounded-md hover:text-gray-500 hover:scale-105 hover:p-4 hover:transition-all hover:duration-300 hover:bg-gray-800 rounded-lg" id="txtSearch" type="text" name="search_bar" placeholder="Search for products..." />
+                        <input class="hover:text-gray-500 hover:scale-105 hover:p-4 hover:transition-all hover:duration-300 hover:bg-gray-800 rounded-lg search1 w-full p-3 bg-blue-500 text-white rounded-md" type="submit" name="submition" value="Search" />
+                    </form>
+                </div>
+            </div>
+
+            <!-- JavaScript for Search Sidebar -->
+        </div>
+
+        <div class="logo" id="log">
+            <img src="/frontend/assets/icons/image-removebg-preview.png" alt="Logo" width="80" height="80">
+        </div>
+        <div class="flex items-center space-x-9">
+            <!-- Language Dropdown with Globe Icon -->
+            <div class="icon-hover relative">
+                <button class="dropdown-toggle p-3 flex items-center space-x-2">
+                    <!-- Globe Icon and Language Text -->
+                    <i class="fas fa-globe-americas text-xl"></i>
+                    <span>English</span>
+                    <span class="arrow">&#9660;</span>
+                </button>
+
+                <!-- Dropdown Menu -->
+                <div class="language-dropdown-menu absolute right-0 mt-2 w-48 bg-white text-black shadow-lg rounded-md hidden">
+                    <ul>
+                        <li class="cursor-pointer hover:bg-gray-200 px-4 py-2">English</li>
+                        <li class="cursor-pointer hover:bg-gray-200 px-4 py-2">Français (French)</li>
+                        <li class="cursor-pointer hover:bg-gray-200 px-4 py-2">Español (Spanish)</li>
+                        <li class="cursor-pointer hover:bg-gray-200 px-4 py-2">Deutsch (German)</li>
+                        <li class="cursor-pointer hover:bg-gray-200 px-4 py-2">Italiano (Italian)</li>
+                        <li class="cursor-pointer hover:bg-gray-200 px-4 py-2">Português (Portuguese)</li>
+                        <li class="cursor-pointer hover:bg-gray-200 px-4 py-2">Nederlands (Dutch)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- User Icon with Popup Functionality -->
+            <button class="icon-hover p-3" onclick="window.location.href='loginpage.html'">
+                <i class="fas fa-user text-xl"></i>
+            </button>
+            
+
+            <!-- Shopping Cart Button with Notification Badge -->
+            <button class="icon-hover p-3 float-right relative" onclick="window.location.href='cart.html'">
+                <i class="fas fa-shopping-cart text-xl"></i>
+                <span id="cartCount" class="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full px-1"></span>
+            </button>
+        </div>
+    </header>
+
+    
+
+
+    <!-- Video Background -->
+    <video id="video-1" autoplay loop muted playsinline>
+        <source src="/public/uploads/WhatsApp Video 2025-02-11 at 11.58.11_52b0f6ba.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Main Content -->
+    <div class="hero-content">
+        <p class="brand">AKK PRESENTS</p>
+        <h1 id="tag">The Aura of Luminora</h1>
+        <p id="para">Discover Luminora Light: A luminous sculpture where structure becomes light, merging craftsmanship with modernity.</p>
+        <button id="first_btn" class="transform hover:scale-105 hover:bg-gray-200 ">Now Available</button>
+    </div>
+    <!-- Shop Our Collection Section -->
+    <div class="tag bg-white text-center py-10 mb-10">
+        <h1 class="text-2xl font-semibold mb-10">SHOP OUR COLLECTION</h1>
+        <div id="products" class="flex flex-wrap justify-center">
+            <a class="flex flex-col items-center transition-transform transform hover:scale-105 hover:bg-gray-200 p-4 rounded-lg mb-14" href="./bedding-bath.html">
+                <img alt="Stack of folded towels in various colors" class="mb-4" height="100" src="https://storage.googleapis.com/a1aa/image/eh_rApSxDTOusCVzg0haq3dPml19rnwRHJq_zyOoMpE.jpg" width="100"/>
+                <p class="text-lg font-medium">Bedding &amp; Bath</p>
+            </a>
+            <a class="flex flex-col items-center transition-transform transform hover:scale-105 hover:bg-gray-200 p-4 rounded-lg mb-14" href="./furniture.html">
+                <img alt="Modern green armchair" class="mb-4" height="100" src="https://storage.googleapis.com/a1aa/image/ZkB8n6vhGus6vExkKAgBmo83Uuik0X2dWxrKg9r0Hzo.jpg" width="100"/>
+                <p class="text-lg font-medium">Furniture</p>
+            </a>
+            <a class="flex flex-col items-center transition-transform transform hover:scale-105 hover:bg-gray-200 p-4 rounded-lg mb-14" href="./light.html">
+                <img alt="Minimalist hanging light fixture" class="mb-4" height="100" src="https://storage.googleapis.com/a1aa/image/kzDDmP8LayFVVGOAKq6wFtQcTxkmQJRZDEOIR6mH3MU.jpg" width="100"/>
+                <p class="text-lg font-medium">Lighting</p>
+            </a>
+            <a class="flex flex-col items-center transition-transform transform hover:scale-105 hover:bg-gray-200 p-4 rounded-lg mb-14" href="./homeandAccessorie.html">
+                <img alt="Home fragrance diffuser" class="mb-4" height="100" src="https://storage.googleapis.com/a1aa/image/x4FDj0Zo-HZ2sK3kmyGrnbSiX3x9DXc0J0Z4yB9SnSY.jpg" width="100"/>
+                <p class="text-lg font-medium">Home Accessories</p>
+            </a>
+            <a class="flex flex-col items-center transition-transform transform hover:scale-105 hover:bg-gray-200 p-4 rounded-lg mb-14" href="./wallandfloor.html">
+                <img alt="Abstract blue wall art" class="mb-4" height="100" src="https://storage.googleapis.com/a1aa/image/OKiVD1Plm-v-a-f8Lf5CNQPiFtnXGGr3cit7-0ADC7g.jpg" width="100"/>
+                <p class="text-lg font-medium">Wall &amp; Floor</p>
+            </a>
+            <a class="flex flex-col items-center transition-transform transform hover:scale-105 hover:bg-gray-200 p-4 rounded-lg mb-14" href="./bodyandbeauty.html">
+                <img alt="Body and beauty products" class="mb-4" height="100" src="https://storage.googleapis.com/a1aa/image/BaMssjcnvBl0NX6jX6lHBPQhYsFrvEfZI20Be1hxOM8.jpg" width="100"/>
+                <p class="text-lg font-medium">Body &amp; Beauty</p>
+            </a>
+        </div>
+    </div>
+    <div class="flex">
+        <!-- First Image Block -->
+        <div class="w-[870px] h-[370px] flex flex-col items-center transition-transform transform hover:scale-105 hover:bg-gray-200">
+            <img alt="Hana Bar Stool" draggable="false" loading="lazy" 
+                 class="w-full h-full object-cover" 
+                 src="https://cdn.moooi.com/assets/Collection/Hana%20Bar%20Stool%20Un-Upholstered/High/Photography%20and%20Videos/Applied%20Images/MOOOI_Hana_Barstool_Banner_01.jpg">
+        </div>
+
+        <!-- Second Block Styled Like Screenshot -->
+        <div class="w-[870px] h-[370px] relative bg-[#5A4344] flex justify-center items-center text-white flex flex-col items-center transition-transform transform hover:scale-105 hover:bg-gray-200" style="font-family: 'Playfair Display', serif;">
+            <div class="text-center">
+                <p class="text-sm tracking-widest uppercase text-black text-4xl bold">AKK</p>
+                <a href="#" class="text-5xl  mt-4 block text-black">
+                    <h2 class="text-5xl  mt-2">Introducing</h2>
+                    <h2 class="text-5xl ">Hana Bar Stool</h2>
+                </a>
+                <p class="text-s text-black mt-2 ">
+                    Inspired by the iconic petal-shaped backrest, Hana Bar Stool combines <br>
+                    sculptural sophistication with everyday functionality.
+                </p>
+                <p class="text-base mt-4 text-black">
+                    <a href="/en/product/hana-bar-stool-un-upholstered-set-of-2" class="hover:text-gray-300">
+                        Explore all variants
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Third and Fourth Image Blocks Side-by-Side with Equal Dimensions -->
+    <div class="flex " style="font-family: 'Playfair Display', serif;">
+        <!-- Third Block: Dress to Impress -->
+        <div class="w-[870px] h-[370px] bg-[#F5F1E9] flex justify-center items-center flex flex-col items-center transition-transform transform hover:scale-105 hover:bg-gray-200" style="font-family: 'Playfair Display', serif;">
+            <div class="text-center">
+                <p class="text-sm text-gray-600 tracking-widest">PRODUCT STORY</p>
+                <a href="#" class="text-5xl  mt-4 block text-black">Dress to Impress</a>
+                <p class="text-xs text-gray-600 mt-2">Drape Light: Elegance and warmth, inspired by perfectly draped fabric.</p>
+                <a href="#" class="text-lg text-gray-800 mt-6 inline-block">Explore Drape Light</a>
+            </div>
+        </div>
+
+        <!-- Fourth Block: Drape Light Scene -->
+        <div class="w-[870px] h-[370px] flex flex-col items-center transition-transform transform hover:scale-105 hover:bg-gray-200">
+            <img alt="Drape Light Scene" class="w-full h-full object-cover" 
+                 src="/public/uploads/Screenshot 2025-02-16 001741.png">
+        </div>
+    </div>
+
+    <div class="flex " style="font-family: 'Playfair Display', serif;">
+        <!-- Sixth Block: Updated Warmth and Colour -->
+        <!-- Additional Scene -->
+        <div class="w-[870px] h-[370px] flex flex-col items-center transition-transform transform hover:scale-105 hover:bg-black-200">
+            <img alt="Additional Scene" class="w-full h-full object-cover" 
+                 src="/public/uploads/Screenshot 2025-02-16 004111.png">
+        </div>
+        <div class="w-[870px] h-[370px] bg-gray-100 flex justify-center items-center flex flex-col items-center transition-transform transform hover:scale-105 hover:bg-gray-200" style="font-family: 'Playfair Display', serif; ">
+            <div class="text-center">
+                <p class="text-sm text-gray-600 tracking-widest mb-4">MOOOI PRESENTS</p>
+                <a href="#" class="text-4xl md:text-4xl lg:text-5xl font-normal text-gray-800 leading-tight mb-6 block">
+                    Add warmth and <br> colour to your <br> interior
+                </a>
+                <a href="#" class="text-sm text-gray-600 block">Explore our blankets</a>
+            </div>
+        </div>
+    </div>
+    <footer class="bg-black text-white w-full py-8 px-4 md:px-8 lg:px-16 xl:px-32 relative">
+        <div class="flex justify-start mb-8">
+            <button class="border border-white px-4 py-2 rounded-full transition-transform duration-200 hover:scale-110  hover:text-gray-400">
+                My country/region is not listed <i class="fas fa-chevron-down"></i>
+            </button>
+        </div>
+
+        <!-- Links Section -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+            <div>
+                <ul>
+                    <li class="mb-2">
+                        <a href="#" class="block px-4 py-2 rounded transition-colors duration-200 hover:text-gray-400 hover:scale-105">Store locator</a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" class="block px-4 py-2 rounded transition-colors duration-200  hover:text-gray-400 hover:scale-105">Material Library</a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" class="block px-4 py-2 rounded transition-colors duration-200 hover:text-gray-400 hover:scale-105">Shipping & Returns</a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" class="block px-4 py-2 rounded transition-colors duration-200 hover:text-gray-400 hover:scale-105">FAQ</a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <li class="mb-2">
+                        <a href="#" class="block px-4 py-2 rounded transition-colors duration-200  hover:text-gray-400 hover:scale-105">Newsletter</a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" class="block px-4 py-2 rounded transition-colors duration-200 hover:text-gray-400 hover:scale-105">Press Area</a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" class="block px-4 py-2 rounded transition-colors duration-200 hover:text-gray-400 hover:scale-105">Jobs</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Social Media Icons -->
+        <div id="contact" class="flex items-center justify-center md:justify-start space-x-4 mb-4">
+            <a href="#" class="text-2xl transition-transform duration-200 hover:scale-110 hover:text-gray-400"><i class="fab fa-pinterest"></i></a>
+            <a href="#" class="text-2xl transition-transform duration-200 hover:scale-110 hover:text-gray-400"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="text-2xl transition-transform duration-200 hover:scale-110 hover:text-gray-400"><i class="fab fa-vimeo"></i></a>
+            <a href="#" class="text-2xl transition-transform duration-200 hover:scale-110 hover:text-gray-400"><i class="fab fa-facebook"></i></a>
+            <a href="#" class="text-2xl transition-transform duration-200 hover:scale-110 hover:text-gray-400"><i class="fab fa-spotify"></i></a>
+        </div>
+
+        <!-- Legal Links and Copyright -->
+        <div class="flex justify-center md:justify-start space-x-4 text-sm mb-4">
+            <a href="#" class="hover:underline transition-colors duration-200  hover:text-gray-400 px-2 py-1 rounded">Disclaimer</a>
+            <a href="#" class="hover:underline transition-colors duration-200  hover:text-gray-400 px-2 py-1 rounded">Cookie Policy</a>
+            <a href="#" class="hover:underline transition-colors duration-200  hover:text-gray-400 px-2 py-1 rounded">General Conditions</a>
+            <a href="#" class="hover:underline transition-colors duration-200  hover:text-gray-400 px-2 py-1 rounded">Privacy Policy</a>
+        </div>
+        <div class="text-center text-sm">
+            <p>&copy; 2023 Your Company. All rights reserved.</p>
+        </div>
+
+        <!-- Back to Top Button -->
+        <div class="absolute bottom-4 right-4">
+            <a href="#" class="text-white text-2xl hover:text-gray-400"><i class="fas fa-arrow-up"></i></a>
+        </div>
+    </footer>
+    <script src="/frontend/js/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="flex bg-white rounded-lg shadow-lg w-3/4 overflow-hidden relative">
+        <div class="w-1/2 p-8 bg-[#eab676] text-black flex flex-col justify-center relative">
+            <img src="/frontend/assets/icons/image-removebg-preview.png" alt="Brand Logo" class="absolute top-4 left-4 w-20">
+            <h2 class="text-3xl font-semibold mt-12">Get all your buying problems solved today</h2>
+            <p class="mt-4 text-lg">Join AKK and get connected to different suppliers across the globe</p>
+            <p class="mt-4 font-medium text-lg">In our site, you can find premium quality products.</p>
+            <img src="/public/uploads/cart image.png" alt="Shopping Cart" class="mt-4 w-32">
+        </div>
+        <div class="w-1/2 p-8">
+            <h2 id="form-title" class="text-3xl font-semibold text-center text-black">Create new account</h2>
+            
+            <form id="signup-form" class="mt-6">
+                <label class="block text-gray-700 text-lg font-medium">Name</label>
+                <input type="text" id="name" required class="w-full p-3 border rounded mt-1 text-lg">
+                
+                <label class="block text-gray-700 mt-4 text-lg font-medium">Email Address</label>
+                <input type="email" id="email" required class="w-full p-3 border rounded mt-1 text-lg">
+                
+                <label class="block text-gray-700 mt-4 text-lg font-medium">Password</label>
+                <input type="password" id="password" required class="w-full p-3 border rounded mt-1 text-lg">
+                
+                <label class="block text-gray-700 mt-4 text-lg font-medium">Signing As</label>
+                <div class="flex items-center mt-2 ">
+                    <input type="radio" id="buyer" name="role" value="buyer" checked class="mr-2">
+                    <label for="buyer" class="text-lg">Buyer</label>
+                    <input type="radio" id="supplier" name="role" value="supplier" class="ml-4 mr-2">
+                    <label for="supplier" class="text-lg">Supplier</label>
+                </div>
+                
+                <button type="submit" class="w-full bg-black text-white py-3 mt-6 rounded text-lg font-semibold hover:bg-gray-800 hover:shadow-lg" onclick="handleSignup(event)">SIGN UP</button>
+
+                <p class="text-sm text-gray-600 mt-4">By registering, you agree to the <a href="#" class="text-black">Terms and Conditions</a></p>
+                <p class="text-sm text-gray-600 mt-2">Already registered? <a href="#" id="toggle-login" class="text-black font-bold text-lg">Login</a></p>
+            </form>
+            
+            <form id="login-form" class="mt-6 hidden" onsubmit="handleLogin(event)">
+                <label class="block text-gray-700 text-lg font-medium">Email Address</label>
+                <input type="email" id="login-email" required class="w-full p-3 border rounded mt-1 text-lg">
+                
+                <label class="block text-gray-700 mt-4 text-lg font-medium">Password</label>
+                <input type="password" id="login-password" required class="w-full p-3 border rounded mt-1 text-lg">
+                
+                <button type="submit" class="w-full bg-black text-white py-3 mt-6 rounded text-lg font-semibold hover:bg-gray-800 hover:shadow-lg" onclick="handleLogin(event)">LOGIN</button>
+
+                <p class="text-sm text-gray-600 mt-2">Don't have an account? <a href="#" id="toggle-signup" class="text-black font-bold text-lg">Sign Up</a></p>
+            </form>
+            <div id="message" class="mt-4 text-center hidden"></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('toggle-login').addEventListener('click', function(event) {
+            event.preventDefault();
+            document.getElementById('signup-form').classList.add('hidden');
+            document.getElementById('login-form').classList.remove('hidden');
+            document.getElementById('form-title').textContent = 'Login to your account';
+        });
+
+        document.getElementById('toggle-signup').addEventListener('click', function(event) {
+            event.preventDefault();
+            document.getElementById('login-form').classList.add('hidden');
+            document.getElementById('signup-form').classList.remove('hidden');
+            document.getElementById('form-title').textContent = 'Create new account';
+        });
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const messageDiv = document.getElementById('message');
+
+            // Send login request to the backend
+            fetch('/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.token) {
+                    localStorage.setItem('token', data.token); // Store the token in local storage
+                    messageDiv.textContent = "Login successful! Redirecting...";
+                    messageDiv.classList.remove('hidden', 'text-red-500');
+                    messageDiv.classList.add('text-green-500');
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html'; // Redirect to a dashboard or home page
+                    }, 2000);
+
+                } else {
+                    messageDiv.textContent = data.error || "Invalid email or password. Please try again.";
+                    messageDiv.classList.remove('hidden', 'text-green-500');
+                    messageDiv.classList.add('text-red-500');
+                }
+            })
+            .catch(error => {
+                messageDiv.textContent = "An error occurred. Please try again.";
+                messageDiv.classList.remove('hidden', 'text-green-500');
+                messageDiv.classList.add('text-red-500');
+            });
+        }
+
+        function handleSignup(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const role = document.querySelector('input[name="role"]:checked').value;
+            const messageDiv = document.getElementById('message');
+
+            // Send signup request to the backend
+            fetch('/api/auth/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name, email, password, role }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                messageDiv.textContent = data.message || data.error;
+                messageDiv.classList.remove('hidden', 'text-red-500');
+                messageDiv.classList.add(data.message ? 'text-green-500' : 'text-red-500');
+            })
+            .catch(error => {
+                messageDiv.textContent = "An error occurred. Please try again.";
+                messageDiv.classList.remove('hidden', 'text-green-500');
+                messageDiv.classList.add('text-red-500');
+            });
+        }
+
+    </script>
+</body>
+</html>

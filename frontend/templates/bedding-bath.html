@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Grid</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Modal styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.8); /* Black w/ opacity */
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto; /* Centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Set a fixed width */
+            max-width: 500px; /* Maximum width for the modal */
+            border-radius: 8px; /* Rounded corners */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-4">
+    <h1 class="text-2xl font-bold mb-4">Product Grid</h1>
+    
+    <!-- Shopping Cart Button with Notification Badge -->
+    <button class="icon-hover p-3 float-right relative" onclick="window.location.href='cart.html'">
+        <i class="fas fa-shopping-cart text-xl"></i>
+        <span id="cartCount" class="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full px-1"></span>
+    </button>
+
+    <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <!-- Product cards will be dynamically inserted here -->
+    </div>
+
+    <!-- Modal for product details -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close pointer" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle" class="text-xl font-bold"></h2>
+            <img id="modalImage" src="" alt="" class="w-full h-auto mb-2">
+            <p id="modalPrice" class="text-lg font-bold"></p>
+            <p id="modalBrand" class="text-gray-500"></p>
+            <button id="addToCartBtn" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded">Add to Cart</button>
+        </div>
+    </div>
+
+    <script>
+        // Sample product data
+        const products = [
+            {
+                title: "Wakefit Dual Comfort High Resilience Foam Mattress",
+                price: 12500,
+                brand: "Wakefit",
+                image: "https://storage.googleapis.com/a1aa/image/WhGIRQCnYX8tqqv7DPvjLSmU-zZDWZenTRrUuuc-p-A.jpg",
+                link: "https://example.com/product1"
+            },
+            {
+                title: "Wakefit Orthopaedic Memory Foam Mattress",
+                price: 7499,
+                brand: "Wakefit",
+                image: "https://storage.googleapis.com/a1aa/image/hDokPcxiqhgV-qcHfmyZ-lQzLkob4xkmYs5plWUbDgE.jpg",
+                link: "https://example.com/product2"
+            },
+            {
+                title: "Nilkamal Riva Queen Bed With Storage",
+                price: 21990,
+                brand: "Nilkamal",
+                image: "https://storage.googleapis.com/a1aa/image/-LQyZCj7mo2na_ONoulUFszheaA8URjG3EkQKZ9T5gU.jpg",
+                link: "https://example.com/product4"
+            },
+            {
+                title: "Nilkamal Willy King Bed With Storage",
+                price: 19490,
+                brand: "Nilkamal",
+                image: "https://storage.googleapis.com/a1aa/image/yQ85O_JwflLYwgOys20pDmgj6srHaCbxh4SZx7LOe8Y.jpg",
+                link: "https://example.com/product6"
+            },
+            {
+                title: "Wakefit Ortho Plus Memory Foam Mattress",
+                price: 17361,
+                brand: "Wakefit",
+                image: "https://storage.googleapis.com/a1aa/image/B9he_aIsm0TzP4_dU-_5mkMGK7XaBH2E54bGqk2pJTI.jpg",
+                link: "https://example.com/product3"
+            }
+        ];
+
+        // Function to load product cards
+        function loadProducts() {
+            const productGrid = document.getElementById('productGrid');
+            products.forEach(product => {
+                const productCard = document.createElement('a');
+                productCard.href = product.link;
+                productCard.className = "block bg-white p-4 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 text-center";
+                productCard.innerHTML = `
+                    <img alt="${product.title}" height="200" src="${product.image}" width="200" class="mx-auto"/>
+                    <h2 class="text-lg font-semibold mt-2">${product.title}</h2>
+                    <p class="text-xl font-bold mt-1">₹${product.price.toFixed(2)}</p>
+                    <p class="text-gray-500">${product.brand}</p>
+                `;
+                productCard.onclick = (e) => {
+                    e.preventDefault();
+                    openModal(product.title, product.price, product.brand, product.image);
+                };
+                productGrid.appendChild(productCard);
+            });
+        }
+
+        // Function to open modal with product details
+        function openModal(title, price, brand, image) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalPrice').innerText = `Price: ₹${price.toFixed(2)}`;
+            document.getElementById('modalBrand').innerText = brand;
+            document.getElementById('modalImage').src = image;
+            document.getElementById('addToCartBtn').onclick = function() {
+                addToCart(title, price, image);
+                alert(`${title} has been added to your cart!`);
+            };
+            document.getElementById('productModal').style.display = 'block';
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            document.getElementById('productModal').style.display = 'none';
+        }
+
+        // Function to add product to the cart
+        function addToCart(title, price, image) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const existingItem = cart.find(item => item.title === title);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ title, price, image, quantity: 1 });
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+        }
+
+        // Function to update the cart count on the icon
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            document.getElementById('cartCount').innerText = cart.length;
+        }
+
+        // Load products and cart count when the page is loaded
+        window.onload = function() {
+            loadProducts();
+            updateCartCount();
+        };
+    </script>
+</body>
+</html>
